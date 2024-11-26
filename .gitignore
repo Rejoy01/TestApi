@@ -1,0 +1,44 @@
+# Node modules
+/node_modules/
+
+# Logs
+*.log
+logs/
+*.log.*
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Directory for package distribution
+/dist/
+
+# npm debug file
+npm-debug.log*
+
+# Yarn log files
+yarn-debug.log*
+yarn-error.log*
+
+# Editor directories and files
+.vscode/
+.idea/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Build files
+/build/
+# Dependency directory
+/public/
+# IDE-specific files
+.vscode/
+
+# Test coverage
+/coverage/
+
+# Miscellaneous files
+*.swp
+*~
