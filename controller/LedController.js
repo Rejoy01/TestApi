@@ -20,7 +20,7 @@ export const CreateLed = AsyncHandler(async (req, res) => {
 
     if(existingUser){
         return res.status(400).json({
-            error: 'User already exists',
+            error: 'User already existss',
         })
     }
     // Create a new user document
