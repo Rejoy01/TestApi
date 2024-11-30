@@ -30,7 +30,7 @@ yarn-error.log*
 Thumbs.db
 
 # Build files
-/build/
+# /build/
 # Dependency directory
 /public/
 # IDE-specific files
