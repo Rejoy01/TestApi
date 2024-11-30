@@ -166,7 +166,7 @@ export const GetAllLedgers = AsyncHandler(async (req, res) => {
 
 export const connectToTally = AsyncHandler(async (req, res) => {
     try {
-        // Establish a connection to Tally ODBC server
+        // Establish a connection to Tally ODBC c
         const connection = await odbc.connect('DSN=TallyODBC64_9000');
         // Execute a query to retrieve data
         const data = await connection.query('SELECT $Name FROM Ledger');
