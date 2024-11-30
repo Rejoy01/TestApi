@@ -18,7 +18,7 @@ App.use(cookieParser())
 App.use(cors())
 
 App.use('/api/',LedgerRoute)
-App.use('/api/tally/',TallyDbConnection)
+// App.use('/api/tally/',TallyDbConnection)
 
 // App.listen(PORT,()=>{
 //     console.log(`Server is running on port ${PORT}`)
