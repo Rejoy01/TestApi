@@ -3,7 +3,7 @@ import axios from 'axios';
 import odbc from 'odbc';
 
 // Define the Tally API URL
-const TALLY_URL = 'http://192.168.1.10:9000';
+const TALLY_URL = 'http://localhost:9000';
 
 // Function to generate XML data for the ledger creation
 const generateLedgerXML = (name, parent, openingBalance = 0, email, address, pincode, state, country) => {
@@ -50,11 +50,27 @@ const generateLedgerXML = (name, parent, openingBalance = 0, email, address, pin
 
 // API handler to connect to Tally and create the ledger
 export const ConnectTally = AsyncHandler(async (req, res) => {
+//    / const query = `SELECT $Name FROM Ledger WHERE $Name = ?`;
+
     try {
         console.log("Connecting to Tally...");
 
-        // Extract data from request body (including address details)
+        const connection = await odbc.connect('DSN=TallyODBC64_9000');
+
+        // Extract data from request body
         const { name, parent, openingBalance, email, address, pincode, state, country } = req.body;
+
+        const query = `SELECT $Name FROM Ledger WHERE $Name = '${name}'`;
+        // Check if the ledger already exists
+        const data = await connection.query(query);
+
+        if (data.length > 0) {
+            // If a ledger with the given name already exists, return an error response
+            return res.status(400).json({
+                success: false,
+                error: 'User already exists',
+            });
+        }
 
         // Validate input data
         if (!name || !parent || !email || !address || !pincode || !state || !country) {
@@ -74,7 +90,7 @@ export const ConnectTally = AsyncHandler(async (req, res) => {
             },
         });
 
-        // Log the response data for debugging (can be removed in production)
+        // Log the response data for debugging
         console.log('Response from Tally:', response.data);
 
         // Return the XML data (or processed data) as a JSON response
@@ -92,8 +108,14 @@ export const ConnectTally = AsyncHandler(async (req, res) => {
             error: 'Failed to connect to Tally or retrieve data',
             details: error.message
         });
+    } finally {
+        // Ensure the connection is closed even if an error occurs
+        if (connection) {
+            await connection.close();
+        }
     }
 });
+
 
 
 

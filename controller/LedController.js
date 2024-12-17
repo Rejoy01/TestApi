@@ -8,7 +8,7 @@ export const CreateLed = AsyncHandler(async (req, res) => {
     console.log("Creating user...");
 
     // Destructure data from the request body
-    const { Name, Address, Parent } = req.body;
+    const { Name, Address, Parent ,country,state,email,phone} = req.body;
 
     // Check if any of the required fields are missing
     if (!Name || !Address || !Parent) {
@@ -23,11 +23,16 @@ export const CreateLed = AsyncHandler(async (req, res) => {
             error: 'User already existss',
         })
     }
+    
     // Create a new user document
     const newUser = new User({
         name: Name,
         address: Address,
         parent: Parent,
+        country: country,
+        state:state,
+        email:email,
+        phone:phone
     });
 
     // Save the new user to the database
